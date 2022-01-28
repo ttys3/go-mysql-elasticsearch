@@ -7,10 +7,10 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/go-mysql-org/go-mysql-elasticsearch/elastic"
+	"github.com/go-mysql-org/go-mysql/canal"
 	"github.com/juju/errors"
 	"github.com/siddontang/go-log/log"
-	"github.com/siddontang/go-mysql-elasticsearch/elastic"
-	"github.com/siddontang/go-mysql/canal"
 )
 
 // ErrRuleNotExist is the error if rule is not defined.
@@ -230,7 +230,7 @@ func (r *River) prepareRule() error {
 			}
 
 			if regexp.QuoteMeta(rule.Table) != rule.Table {
-				//wildcard table
+				// wildcard table
 				tables, ok := wildtables[ruleKey(rule.Schema, rule.Table)]
 				if !ok {
 					return errors.Errorf("wildcard table for %s.%s is not defined in source", rule.Schema, rule.Table)
